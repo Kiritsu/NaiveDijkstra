@@ -43,6 +43,14 @@ public class GeneratorHelpers {
             generator.nextEvents();
         }
         generator.end();
+
+        if (addWeight) {
+            applyToEdges(graph, e -> { // needed because random generation uses numbers between 0 and 1.
+                double weight = (double) e.getAttribute(WeightAttributeName);
+                e.setAttribute(WeightAttributeName, (int)(weight * 10));
+            });
+        }
+
         return generator;
     }
 
@@ -57,7 +65,17 @@ public class GeneratorHelpers {
     }
 
     /**
-     * Apply a function to every node of the given graph.
+     * Apply a function to every {@link Edge} of the given {@link Graph}.
+     *
+     * @param graph    Represents the {@link Graph} which will have its nodes modified.
+     * @param function Function to be used for each {@link Edge} in the {@link Graph}.
+     */
+    public static void applyToEdges(Graph graph, Consumer<? super Edge> function) {
+        graph.edges().forEach(function);
+    }
+
+    /**
+     * Apply a function to every {@link Node} of the given {@link Graph}.
      *
      * @param graph    Represents the {@link Graph} which will have its nodes modified.
      * @param function Function to be used for each {@link Node} in the {@link Graph}.
