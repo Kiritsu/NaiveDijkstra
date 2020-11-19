@@ -6,7 +6,7 @@ import org.graphstream.graph.Node;
 
 import java.util.function.Consumer;
 
-public class GeneratorHelpers {
+public class GraphHelpers {
     /**
      * Gets or sets the name of the attribute to use when generating a {@link Graph} with a weight on each {@link Edge}.
      *
